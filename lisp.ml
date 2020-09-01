@@ -61,7 +61,7 @@ let read_sexp stm =
   in
   eat_whitespace stm;
   let c = read_char stm in
-  if is_digit c then read_fixnum (Char.escaped c)
+  if (is_digit c) || (c = '~') then read_fixnum (Char.escaped (if c = '~' then '-' else c))
   else if c = '#' then
     match (read_char stm) with
     | 't' -> Boolean(true)
